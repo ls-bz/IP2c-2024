@@ -5,14 +5,17 @@ from .layers.services import services
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 
+
 def index_page(request):
     return render(request, 'index.html')
 
 # esta función obtiene 2 listados que corresponden a las imágenes de la API y los favoritos del usuario, y los usa para dibujar el correspondiente template.
 # si el opcional de favoritos no está desarrollado, devuelve un listado vacío.
 def home(request):
-    images = []
+    images = services.getAllImages(input=None)
     favourite_list = []
+    if request.user.is_authenticated: # Verificamos si el usuario se encuentra autenticado
+         favourite_list = services.getAllFavourites(request)
 
     return render(request, 'home.html', { 'images': images, 'favourite_list': favourite_list })
 
