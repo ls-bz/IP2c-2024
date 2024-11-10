@@ -21,11 +21,16 @@ def home(request):
 
 def search(request):
     search_msg = request.POST.get('query', '')
-
-    # si el texto ingresado no es vacío, trae las imágenes y favoritos desde services.py,
+    print(search_msg)
     # y luego renderiza el template (similar a home).
-    if (search_msg != ''):
-        pass
+    if (search_msg != ''): # si el texto ingresado no es vacío, trae las imágenes y favoritos desde services.py,
+        images = services.getAllImages(input=search_msg)
+        favourite_list = []
+        # Verificamos si el usuario se encuentra autenticado
+#        if request.user.is_authenticated: 
+#            favourite_list = services.getAllFavourites(request)
+        return render(request, 'home.html', { 'images': images, 'favourite_list': favourite_list })
+
     else:
         return redirect('home')
 
