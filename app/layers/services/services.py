@@ -6,10 +6,7 @@ from ..transport import transport
 from django.contrib.auth import get_user
 
 def getAllImages(input=None):
-    if input is None:
-        json_collection = transport.getAllImages(input=None) # obtiene un listado de datos "crudos" desde la API, usando a transport.py.
-    else:
-        json_collection = transport.getAllImages(input)
+    json_collection = transport.getAllImages(input)
     images = []
     
     for img in json_collection: # recorre cada dato crudo de la colección anterior, lo convierte en una Card y lo agrega a images.

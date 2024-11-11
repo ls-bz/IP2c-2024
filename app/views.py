@@ -4,32 +4,43 @@ from django.shortcuts import redirect, render
 from .layers.services import services
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
+from django.core.paginator import Paginator
 
 
 def index_page(request):
     return render(request, 'index.html')
 
-# esta función obtiene 2 listados que corresponden a las imágenes de la API y los favoritos del usuario, y los usa para dibujar el correspondiente template.
-# si el opcional de favoritos no está desarrollado, devuelve un listado vacío.
-def home(request):
-    images = services.getAllImages(input=None)
+def home(request, page=1):
+    images = services.getAllImages(input=None) # Esta función obtiene todas las imágenes de la API
     favourite_list = []
-    if request.user.is_authenticated: # Verificamos si el usuario se encuentra autenticado
-         favourite_list = services.getAllFavourites(request)
+    if request.user.is_authenticated: # Verificamos si el usuario se encuentra autenticado, de lo contrario devuelve un listado vacío.
+         favourite_list = services.getAllFavourites(request) # Obtiene los favoritos del usuario
 
-    return render(request, 'home.html', { 'images': images, 'favourite_list': favourite_list })
+    # Configura el paginador para mostrar 20 resultados
+    paginator = Paginator(images, 20)
+    page_object = paginator.get_page(page)
 
-def search(request):
+    # Guardamos images y favourites en un limite de 20 elementos
+    context = {'page_object': page_object, 'favourite_list': favourite_list}
+
+    return render(request, 'home.html', context)
+
+def search(request, page=1):
     search_msg = request.POST.get('query', '')
     print(search_msg)
     # y luego renderiza el template (similar a home).
     if (search_msg != ''): # si el texto ingresado no es vacío, trae las imágenes y favoritos desde services.py,
         images = services.getAllImages(input=search_msg)
         favourite_list = []
-        # Verificamos si el usuario se encuentra autenticado
-#        if request.user.is_authenticated: 
-#            favourite_list = services.getAllFavourites(request)
-        return render(request, 'home.html', { 'images': images, 'favourite_list': favourite_list })
+        if request.user.is_authenticated: 
+            favourite_list = services.getAllFavourites(request)
+
+        paginator = Paginator(images, 20)
+        page_object = paginator.get_page(page)
+        
+        context = {'page_object': page_object, 'favourite_list': favourite_list}
+
+        return render(request, 'home.html', context)
 
     else:
         return redirect('home')

@@ -31,11 +31,11 @@
             <button class="btn btn-outline-success" type="submit">Buscar</button>
         </form>
     </div>
-
+    <!-- trasladamos images a page_object -->
     <div class="row row-cols-1 row-cols-md-3 g-4">
-        {% if images|length == 0 %}
+        {% if page_object|length == 0 %}
         <h2 class="text-center">La búsqueda no arrojó resultados...</h2>
-        {% else %} {% for img in images %}
+        {% else %} {% for img in page_object %}
         <div class="col">
             <div class="card mb-3 ms-5" style="max-width: 540px;">
                 <div class="row g-0">

@@ -6,6 +6,7 @@ urlpatterns = [
     path('', views.index_page, name='index-page'),
     path('login/', views.index_page, name='login'),
     path('home/', views.home, name='home'),
+    path('<int:page>', views.home, name='home'),
     path('buscar/', views.search, name='buscar'),
 
     path('favourites/', views.getAllFavouritesByUser, name='favoritos'),
