@@ -21,6 +21,7 @@ def home(request, page=2):
 
     #page_object = paginator.get_page(page)
 
+
     page_number = request.GET.get("page")
     page_object = paginator.get_page(page_number)
 
@@ -68,4 +69,5 @@ def deleteFavourite(request):
 
 @login_required
 def exit(request):
-    pass
+    logout(request)
+    return redirect('home')

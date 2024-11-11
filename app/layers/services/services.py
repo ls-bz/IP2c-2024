@@ -4,6 +4,7 @@ from ..persistence import repositories
 from ..utilities import translator
 from ..transport import transport
 from django.contrib.auth import get_user
+from django.contrib.auth.models import User
 
 def getAllImages(input=None):
     json_collection = transport.getAllImages(input)
