@@ -61,7 +61,9 @@ def getAllFavouritesByUser(request):
 
 @login_required
 def saveFavourite(request):
-    pass
+    services.saveFavourite(request)
+    getAllFavouritesByUser(request)
+    return saveFavourite(request)
 
 @login_required
 def deleteFavourite(request):
