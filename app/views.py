@@ -62,7 +62,7 @@ def getAllFavouritesByUser(request):
 @login_required
 def saveFavourite(request):
     services.saveFavourite(request)
-    getAllFavouritesByUser(request)
+    
     return getAllFavouritesByUser(request)
 
 @login_required
