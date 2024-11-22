@@ -56,6 +56,8 @@ def search(request):
 # Estas funciones se usan cuando el usuario está logueado en la aplicación.
 @login_required
 def getAllFavouritesByUser(request):
+    
+    
     favourite_list = []
     return render(request, 'favourites.html', { 'favourite_list': favourite_list })
 
