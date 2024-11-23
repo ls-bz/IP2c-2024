@@ -6,13 +6,12 @@ from ..transport import transport
 from django.contrib.auth import get_user
 from django.contrib.auth.models import User
 
-def getAllImages(input=None):
-    json_collection = transport.getAllImages(input)
+def getAllImages(request, input=None):
+    json_collection = transport.getAllImages(request, input=None)
     images = []
     
     for img in json_collection: # recorre cada dato crudo de la colección anterior, lo convierte en una Card y lo agrega a images.
         card = translator.fromRequestIntoCard(img)
-        #if card not in images:
         images.append(card)
 
     return images
