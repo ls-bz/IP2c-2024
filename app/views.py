@@ -32,8 +32,16 @@ def home(request, page=1):
     return render(request, 'home.html', context)
 
 def search(request):
-    search_msg = request.POST.get('query', '')
-    # y luego renderiza el template (similar a home).
+    # La función search utiliza los metodos:
+    # POST para enviar el término inicial de búsqueda
+    # GET para navegar entre páginas
+    
+    if request.method == 'POST':  # Controlar cuando request utiliza POST
+        search_msg = request.POST.get('query', '')  # La búsqueda del usuario
+        if search_msg:  # Si se ingresó una búsqueda
+            return redirect("/buscar/?query="+search_msg) # Redirige a una url tenga por párametro a la búsqueda (en pocas palabras, traduce a GET, para luego utilizar el paginador)
+
+    search_msg = request.GET.get('query', '') # Búsqueda del usuario por paginador: acá manejamos el GET 
     if (search_msg != ''): # si el texto ingresado no es vacío, trae las imágenes y favoritos desde services.py,
         images = services.getAllImages(request, input=search_msg)
         favourite_list = []

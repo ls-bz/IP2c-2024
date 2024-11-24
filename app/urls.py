@@ -8,6 +8,7 @@ urlpatterns = [
     path('home/', views.home, name='home'),
     path('home/<int:page>', views.home, name='home'),
     path('buscar/', views.search, name='buscar'),
+    path('buscar/<int:page>', views.search, name='buscar'),
     path('favourites/', views.getAllFavouritesByUser, name='favoritos'),
     path('favourites/add/', views.saveFavourite, name='agregar-favorito'),
     path('favourites/delete/', views.deleteFavourite, name='borrar-favorito'),

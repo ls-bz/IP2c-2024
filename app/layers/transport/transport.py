@@ -8,6 +8,7 @@ from ...config import config
 # este método se encarga de "pegarle" a la API y traer una lista de objetos JSON crudos (raw).
 def getAllImages(request, input=None):
     page_number = request.GET.get("page", 1)
+
     if input is None:
         json_response = requests.get(config.DEFAULT_REST_API_URL + str(page_number)).json()
     else:

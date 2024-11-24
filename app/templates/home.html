@@ -7,19 +7,19 @@
         <nav aria-label="...">
             <ul class="pagination">
                 <li class="page-item">
-                    <a class="page-link" href="?page={{ prev_page }}">⬅️</a>
+                    <a class="page-link" href="?page={{ prev_page }}{% if search_msg %}&query={{ search_msg }}{% endif %}">⬅️</a>
                 </li>
                 <li class="page-item" aria-current="page">
-                    <a class="page-link" href="?page={{ prev_page }}">{{ prev_page }}</a>
+                    <a class="page-link" href="?page={{ prev_page }}{% if search_msg %}&query={{ search_msg }}{% endif %}">{{ prev_page }}</a>
                 </li>
                 <li class="page-item active">
-                    <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+                    <a class="page-link" href="?page={{ page_number }}{% if search_msg %}&query={{ search_msg }}{% endif %}">{{ page_number }}</a>
                 </li>
                 <li class="page-item">
-                    <a class="page-link" href="?page={{ next_page }}">{{ next_page }}</a>
+                    <a class="page-link" href="?page={{ next_page }}{% if search_msg %}&query={{ search_msg }}{% endif %}">{{ next_page }}</a>
                 </li>
                 <li class="page-item">
-                    <a class="page-link" href="?page={{ next_page }}">➡️</a>
+                    <a class="page-link" href="?page={{ next_page }}{% if search_msg %}&query={{ search_msg }}{% endif %}">➡️</a>
                 </li>
             </ul>
         </nav>
@@ -72,7 +72,7 @@
                                 <input type="hidden" name="last_location" value="{{ img.last_location }}">
                                 <input type="hidden" name="first_seen" value="{{ img.first_seen }}"> {% if img in favourite_list %}
                                 <button type="submit" class="btn btn-primary btn-sm float-left" style="color:white" disabled>✔️ Ya está en favoritos</button> {% else %}
-                                <button type="submit" class="btn btn-primary btn-sm float-left" style="color:white">❤️ Añadir a favoritos</button> {% endif %}
+                                <button type="submit" class="btn btn-primary btn-sm float-left" style="color:white">⭐ Añadir a favoritos</button> {% endif %}
                             </form>
                         </div>
                         {% endif %}
