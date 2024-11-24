@@ -18,11 +18,11 @@ def home(request, page=1):
          favourite_list = services.getAllFavourites(request) # Obtiene los favoritos del usuario
     
     # Configura el paginador para mostrar 20 resultados
-    paginator = Paginator(images, per_page=20) # Show 20 per page.
-    page_number = int(request.GET.get("page", 1))
+    paginator = Paginator(images, per_page=20) # Mostrar 20 resultados por página
+    page_number = int(request.GET.get("page", 1)) # Obtiene la página actual
     page_object = paginator.get_page(page_number)
-    next_page = page_number + 1
-    if page_number > 1:
+    next_page = page_number + 1 
+    if page_number > 1: # Evitar páginas menores que 1
         prev_page = page_number - 1
     else:
         prev_page = 0
@@ -39,7 +39,7 @@ def search(request):
     if request.method == 'POST':  # Controlar cuando request utiliza POST
         search_msg = request.POST.get('query', '')  # La búsqueda del usuario
         if search_msg:  # Si se ingresó una búsqueda
-            return redirect("/buscar/?query="+search_msg) # Redirige a una url tenga por párametro a la búsqueda (en pocas palabras, traduce a GET, para luego utilizar el paginador)
+            return redirect("/buscar/?query="+search_msg) # Redirige a una url que tenga por párametro a la búsqueda (en pocas palabras, traduce a GET, para luego utilizar el paginador)
 
     search_msg = request.GET.get('query', '') # Búsqueda del usuario por paginador: acá manejamos el GET 
     if (search_msg != ''): # si el texto ingresado no es vacío, trae las imágenes y favoritos desde services.py,
@@ -79,7 +79,8 @@ def saveFavourite(request):
 
 @login_required
 def deleteFavourite(request):
-    pass
+    services.deleteFavourite(request)
+    return getAllFavouritesByUser(request)
 
 @login_required
 def exit(request):
